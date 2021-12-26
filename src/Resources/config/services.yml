@@ -1,0 +1,19 @@
+services:
+    
+    ################################################################################
+    # SPLASH Optilog Connector Service
+    splash.connectors.flat:
+        class: Splash\Connectors\Flat\Services\FlatConnector
+        arguments:
+            -   "@event_dispatcher"
+            -   "@logger"
+        tags:       
+            - { name: "splash.connector" }
+            
+    ################################################################################
+    # Enables Dependency Injection in Controller Actions
+    Splash\Connectors\Flat\Controller\:
+        resource: '../../Controller'
+        public: true
+        tags:
+            - { name: 'controller.service_arguments' }
