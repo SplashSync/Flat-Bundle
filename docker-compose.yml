@@ -1,0 +1,83 @@
+################################################################################
+#
+#  This file is part of SplashSync Project.
+# 
+#  Copyright (C) Splash Sync <www.splashsync.com>
+# 
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# 
+#  For the full copyright and license information, please view the LICENSE
+#  file that was distributed with this source code.
+# 
+#  @author Bernard Paquier <contact@splashsync.com>
+#
+################################################################################
+
+################################################################################
+# Docker Compose File
+#
+# This Docker File intend to Create a Complete Dev Environnement
+# for Splash Flat Connector
+#
+# For a faster access to you container, you can add this IP to /etc/hosts
+# 
+# 172.117.0.100         toolkit.flat.local
+#
+################################################################################
+
+
+version: '2'
+
+services:
+    
+    ################################################################################
+    # Splash Toolkit Container   
+    toolkit:
+        image: 'splashsync/toolkit'
+        container_name: flat-toolkit
+        volumes:
+            # Specify Local Configuration File
+            - './docker/toolkit/splash.yml:/app/config/packages/splash.yml:ro'
+            # Uncomment to use Local Sources instead of Release
+            - './src/:/app/vendor/splash/flat/src/:ro'
+        hostname:           toolkit.optilog.local
+        networks:
+            optilog:        { ipv4_address: 172.117.0.100, aliases: [ toolkit.flat.local ] }
+            splashsync:     { aliases: [ toolkit.flat.local ] }
+
+    ################################################################################
+    # PHP 8.0
+    php-8.0:
+        image:          registry.gitlab.com/badpixxel-projects/php-sdk:php-8.0
+        container_name: flat-bundle-8.0
+        volumes:
+            - ./:/var/www/html
+            - vendor-php80:/var/www/html/vendor
+
+    ################################################################################
+    # PHP 7.4
+    php-7.4:
+        image:          registry.gitlab.com/badpixxel-projects/php-sdk:php-7.4
+        container_name: flat-bundle-7.4
+        volumes:
+            - ./:/var/www/html
+            - vendor-php74:/var/www/html/vendor
+
+networks:
+    ################################################################################
+    # Default Private Network    
+    flat:
+        driver: bridge
+        ipam:
+            config:
+                - subnet: 172.117.0.0/24
+    ################################################################################
+    # External Splash Network
+    splashsync:
+        external: true
+
+volumes:
+    vendor-php80: ~
+    vendor-php74: ~
