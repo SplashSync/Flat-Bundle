@@ -1,0 +1,20 @@
+
+## Node Variables 
+var:
+    url:
+        label:  "Target Url"
+        desc:   "Access Url for Target File."
+
+
+## Node Profile
+profile:
+    connection:
+        title:  Flat Connector
+    card:   
+        title:  Flat Files Connector
+        label:  Connect your remote files to Splash Sync
+
+## Node Api Actions
+admin:
+    selftest:   Flat Files Connector Configuration
+    connect:    Touch remote file
