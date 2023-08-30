@@ -1,15 +1,59 @@
 services:
-    
+
+    _defaults:
+        autowire:       true
+        autoconfigure:  true
+
     ################################################################################
-    # SPLASH Optilog Connector Service
-    splash.connectors.flat:
-        class: Splash\Connectors\Flat\Services\FlatConnector
-        arguments:
-            -   "@event_dispatcher"
-            -   "@logger"
-        tags:       
+    # AutoWire for Adapter Factories
+    _instanceof:
+        Splash\Connectors\Flat\FileReader\FileReaderInterface:
+            tags: ['splash.connector.flat.reader']
+
+        Splash\Connectors\Flat\FileParser\FileParserInterface:
+            tags: ['splash.connector.flat.parser']
+
+        Splash\Connectors\Flat\Formater\FormaterInterface:
+            tags: ['splash.connector.flat.formater']
+
+    ################################################################################
+    # AutoWire for Connector Services
+    Splash\Connectors\Flat\Connector\:
+        resource: '../../Connector'
+        calls:
+            - setMetaDir: [ "%kernel.cache_dir%" ]
+        tags:
             - { name: "splash.connector" }
-            
+
+    ################################################################################
+    # AutoWire for Files Readers
+    Splash\Connectors\Flat\FileReader\:
+        resource: '../../FileReader'
+
+    ################################################################################
+    # AutoWire for File Parsers
+    Splash\Connectors\Flat\FileParser\:
+        resource: '../../FileParser'
+
+    ################################################################################
+    # AutoWire for Formater
+    Splash\Connectors\Flat\Formater\:
+        resource: '../../Formater'
+
+    ################################################################################
+    # AutoWire for Services
+    Splash\Connectors\Flat\Services\:
+        resource: '../../Services'
+        bind:
+            $fileReaders:       !tagged_iterator splash.connector.flat.reader
+            $fileParsers:       !tagged_iterator splash.connector.flat.parser
+            $taggedFormater:    !tagged_iterator splash.connector.flat.formater
+
+    ################################################################################
+    # Register Form as Service
+    Splash\Connectors\Flat\Form\Type\FlatFileType:
+        tags: ['form.type']
+
     ################################################################################
     # Enables Dependency Injection in Controller Actions
     Splash\Connectors\Flat\Controller\:
