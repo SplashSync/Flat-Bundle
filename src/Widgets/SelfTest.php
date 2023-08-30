@@ -16,8 +16,8 @@
 namespace Splash\Connectors\Flat\Widgets;
 
 use Splash\Bundle\Models\AbstractStandaloneWidget;
-use Splash\Connectors\Optilog\Services\OptilogConnector;
-use Splash\Core\SplashCore      as Splash;
+use Splash\Connectors\Flat\Connector\FlatConnector;
+use Splash\Core\SplashCore as Splash;
 
 /**
  * Flat Config SelfTest
@@ -27,7 +27,7 @@ class SelfTest extends AbstractStandaloneWidget
     /**
      * {@inheritdoc}
      */
-    public static $OPTIONS = array(
+    public static array $options = array(
         "Width" => self::SIZE_DEFAULT,
         'UseCache' => true,
         'CacheLifeTime' => 1,
@@ -36,43 +36,37 @@ class SelfTest extends AbstractStandaloneWidget
     /**
      * {@inheritdoc}
      */
-    protected static $NAME = "Server SelfTest";
+    protected static string $name = "Server SelfTest";
 
     /**
      * {@inheritdoc}
      */
-    protected static $DESCRIPTION = "Results of your Server SelfTests";
+    protected static string $description = "Results of your Server SelfTests";
 
     /**
      * {@inheritdoc}
      */
-    protected static $ICO = "fa fa-info-circle";
-
-    /**
-     * @var OptilogConnector
-     */
-    protected $connector;
+    protected static string $ico = "fa fa-info-circle";
 
     /**
      * Class Constructor
      *
-     * @param OptilogConnector $connector
+     * @param FlatConnector $connector
      */
-    public function __construct(OptilogConnector $connector)
+    public function __construct(private FlatConnector $connector)
     {
-        $this->connector = $connector;
     }
 
     /**
      * Return requested Customer Data
      *
-     * @param array $params Widget Inputs Parameters
+     * @param array $parameters Widget Inputs Parameters
      *
      * @return array
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function get($params = null)
+    public function get(array $parameters = null): ?array
     {
         //====================================================================//
         // Stack Trace
@@ -91,7 +85,7 @@ class SelfTest extends AbstractStandaloneWidget
         $this->buildIntroBlock();
 
         //====================================================================//
-        // Build SlefTest Results Block
+        // Build SelfTest Results Block
         //====================================================================//
         $this->connector->selfTest();
         $this->buildNotificationsBlock();
