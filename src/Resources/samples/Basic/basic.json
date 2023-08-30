@@ -1,0 +1,322 @@
+[
+  {
+    "sku": "PRD0001",
+    "label": "Basic Product 001 XXXR",
+    "description": "Description Product 001",
+    "stock": 10,
+    "updated_at": "2021-12-15 01:07:49",
+    "created_at": "2021-12-15 01:07:49"
+  },
+  {
+    "sku": "PRD0002",
+    "label": "Basic Product 002",
+    "description": "Description Product 002",
+    "stock": 11,
+    "updated_at": "2021-12-15 01:05:19",
+    "created_at": "2021-12-15 01:05:19"
+  },
+  {
+    "sku": "PRD0003",
+    "label": "Basic Product 003",
+    "description": "Description Product 003",
+    "stock": 12,
+    "updated_at": "2021-12-15 01:04:56",
+    "created_at": "2021-12-15 01:04:56"
+  },
+  {
+    "sku": "PRD0004",
+    "label": "Basic Product 004",
+    "description": "Description Product 004",
+    "stock": 13,
+    "updated_at": "2021-12-15 01:04:33",
+    "created_at": "2021-12-15 01:04:33"
+  },
+  {
+    "sku": "PRD0005",
+    "label": "Basic Product 005",
+    "description": "Description Product 005",
+    "stock": 14,
+    "updated_at": "2021-12-15 01:04:10",
+    "created_at": "2021-12-15 01:04:10"
+  },
+  {
+    "sku": "PRD0006",
+    "label": "Basic Product 006",
+    "description": "Description Product 006",
+    "stock": 15,
+    "updated_at": "2021-12-15 01:03:47",
+    "created_at": "2021-12-15 01:03:47"
+  },
+  {
+    "sku": "PRD0007",
+    "label": "Basic Product 007",
+    "description": "Description Product 007",
+    "stock": 235,
+    "updated_at": "2021-12-15 01:03:24",
+    "created_at": "2021-12-15 01:03:24"
+  },
+  {
+    "sku": "PRD0008",
+    "label": "Basic Product 008",
+    "description": "Description Product 008",
+    "stock": 17,
+    "updated_at": "2021-12-15 01:03:00",
+    "created_at": "2021-12-15 01:03:00"
+  },
+  {
+    "sku": "PRD0009",
+    "label": "Basic Product 009",
+    "description": "Description Product 009",
+    "stock": 18,
+    "updated_at": "2021-12-15 01:07:37",
+    "created_at": "2021-12-15 01:07:37"
+  },
+  {
+    "sku": "PRD0010",
+    "label": "Basic Product 010",
+    "description": "Description Product 010",
+    "stock": 19,
+    "updated_at": "2021-12-15 01:07:14",
+    "created_at": "2021-12-15 01:07:14"
+  },
+  {
+    "sku": "PRD0011",
+    "label": "Basic Product 011",
+    "description": "Description Product 011",
+    "stock": 20,
+    "updated_at": "2021-12-15 01:06:28",
+    "created_at": "2021-12-15 01:06:28"
+  },
+  {
+    "sku": "PRD0012",
+    "label": "Basic Product 012",
+    "description": "Description Product 012",
+    "stock": 21,
+    "updated_at": "2021-12-15 01:06:05",
+    "created_at": "2021-12-15 01:06:05"
+  },
+  {
+    "sku": "PRD0013",
+    "label": "Basic Product 013",
+    "description": "Description Product 013",
+    "stock": 22,
+    "updated_at": "2021-12-15 01:05:42",
+    "created_at": "2021-12-15 01:05:42"
+  },
+  {
+    "sku": "PRD0014",
+    "label": "Basic Product 014",
+    "description": "Description Product 014",
+    "stock": 23,
+    "updated_at": "2021-12-15 01:00:19",
+    "created_at": "2021-12-15 01:00:19"
+  },
+  {
+    "sku": "PRD0015",
+    "label": "Basic Product 015",
+    "description": "Description Product 015",
+    "stock": 24,
+    "updated_at": "2021-12-15 01:04:56",
+    "created_at": "2021-12-15 01:04:56"
+  },
+  {
+    "sku": "PRD0016",
+    "label": "Basic Product 016",
+    "description": "Description Product 016",
+    "stock": 25,
+    "updated_at": "2021-12-15 01:06:33",
+    "created_at": "2021-12-15 01:06:33"
+  },
+  {
+    "sku": "PRD0017",
+    "label": "Basic Product 017",
+    "description": "Description Product 017",
+    "stock": 26,
+    "updated_at": "2021-12-15 01:07:10",
+    "created_at": "2021-12-15 01:07:10"
+  },
+  {
+    "sku": "PRD0018",
+    "label": "Basic Product 018",
+    "description": "Description Product 018",
+    "stock": 27,
+    "updated_at": "2021-12-15 01:03:47",
+    "created_at": "2021-12-15 01:03:47"
+  },
+  {
+    "sku": "PRD0019",
+    "label": "Basic Product 019",
+    "description": "Description Product 019",
+    "stock": 28,
+    "updated_at": "2021-12-15 00:58:24",
+    "created_at": "2021-12-15 00:58:24"
+  },
+  {
+    "sku": "PRD0020",
+    "label": "Basic Product 020",
+    "description": "Description Product 020",
+    "stock": 29,
+    "updated_at": "2021-12-15 01:03:00",
+    "created_at": "2021-12-15 01:03:00"
+  },
+  {
+    "sku": "PRD0021",
+    "label": "Basic Product 021",
+    "description": "Description Product 021",
+    "stock": 30,
+    "updated_at": "2021-12-15 01:07:37",
+    "created_at": "2021-12-15 01:07:37"
+  },
+  {
+    "sku": "PRD0022",
+    "label": "Basic Product 022",
+    "description": "Description Product 022",
+    "stock": 31,
+    "updated_at": "2021-12-15 00:57:14",
+    "created_at": "2021-12-15 00:57:14"
+  },
+  {
+    "sku": "PRD0023",
+    "label": "Basic Product 023",
+    "description": "Description Product 023",
+    "stock": 32,
+    "updated_at": "2021-12-15 00:32:08",
+    "created_at": "2021-12-15 00:32:08"
+  },
+  {
+    "sku": "PRD0024",
+    "label": "Basic Product 024",
+    "description": "Description Product 024",
+    "stock": 33,
+    "updated_at": "2021-12-15 00:40:45",
+    "created_at": "2021-12-15 00:40:45"
+  },
+  {
+    "sku": "PRD0025",
+    "label": "Basic Product 025",
+    "description": "Description Product 025",
+    "stock": 34,
+    "updated_at": "2021-12-15 00:11:22",
+    "created_at": "2021-12-15 00:11:22"
+  },
+  {
+    "sku": "PRD0026",
+    "label": "Basic Product 026",
+    "description": "Description Product 026",
+    "stock": 35,
+    "updated_at": "2021-12-15 00:11:23",
+    "created_at": "2021-12-15 00:11:23"
+  },
+  {
+    "sku": "PRD0027",
+    "label": "Basic Product 027",
+    "description": "Description Product 027",
+    "stock": 36,
+    "updated_at": "2021-12-15 00:11:24",
+    "created_at": "2021-12-15 00:11:24"
+  },
+  {
+    "sku": "PRD0028",
+    "label": "Basic Product 028",
+    "description": "Description Product 028",
+    "stock": 37,
+    "updated_at": "2021-12-15 00:11:25",
+    "created_at": "2021-12-15 00:11:25"
+  },
+  {
+    "sku": "PRD0029",
+    "label": "Basic Product 029",
+    "description": "Description Product 029",
+    "stock": 38,
+    "updated_at": "2021-12-15 00:11:26",
+    "created_at": "2021-12-15 00:11:26"
+  },
+  {
+    "sku": "PRD0030",
+    "label": "Basic Product 030",
+    "description": "Description Product 030",
+    "stock": 39,
+    "updated_at": "2021-12-15 00:11:27",
+    "created_at": "2021-12-15 00:11:27"
+  },
+  {
+    "sku": "PRD0031",
+    "label": "Basic Product 031",
+    "description": "Description Product 031",
+    "stock": 40,
+    "updated_at": "2021-12-15 00:11:28",
+    "created_at": "2021-12-15 00:11:28"
+  },
+  {
+    "sku": "PRD0032",
+    "label": "Basic Product 032",
+    "description": "Description Product 032",
+    "stock": 41,
+    "updated_at": "2021-12-15 00:11:29",
+    "created_at": "2021-12-15 00:11:29"
+  },
+  {
+    "sku": "PRD0033",
+    "label": "Basic Product 033",
+    "description": "Description Product 033",
+    "stock": 42,
+    "updated_at": "2021-12-15 00:11:30",
+    "created_at": "2021-12-15 00:11:30"
+  },
+  {
+    "sku": "PRD0034",
+    "label": "Basic Product 034",
+    "description": "Description Product 034",
+    "stock": 43,
+    "updated_at": "2021-12-15 00:11:31",
+    "created_at": "2021-12-15 00:11:31"
+  },
+  {
+    "sku": "PRD0035",
+    "label": "Basic Product 035",
+    "description": "Description Product 035",
+    "stock": 44,
+    "updated_at": "2021-12-15 00:11:32",
+    "created_at": "2021-12-15 00:11:32"
+  },
+  {
+    "sku": "PRD0036",
+    "label": "Basic Product 036",
+    "description": "Description Product 036",
+    "stock": 45,
+    "updated_at": "2021-12-15 00:11:33",
+    "created_at": "2021-12-15 00:11:33"
+  },
+  {
+    "sku": "PRD0037",
+    "label": "Basic Product 037",
+    "description": "Description Product 037",
+    "stock": 46,
+    "updated_at": "2021-12-15 00:11:34",
+    "created_at": "2021-12-15 00:11:34"
+  },
+  {
+    "sku": "PRD0038",
+    "label": "Basic Product 038",
+    "description": "Description Product 038",
+    "stock": 47,
+    "updated_at": "2021-12-15 00:11:35",
+    "created_at": "2021-12-15 00:11:35"
+  },
+  {
+    "sku": "PRD0039",
+    "label": "Basic Product 039",
+    "description": "Description Product 039",
+    "stock": 48,
+    "updated_at": "2021-12-15 00:11:36",
+    "created_at": "2021-12-15 00:11:36"
+  },
+  {
+    "sku": "PRD0040",
+    "label": "Basic Product 040",
+    "description": "Description Product 040",
+    "stock": 49,
+    "updated_at": "2021-12-15 00:11:37",
+    "created_at": "2021-12-15 00:11:37"
+  }
+]
