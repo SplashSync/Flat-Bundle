@@ -16,6 +16,9 @@ var:
         parser:
             label:  "File Decoder"
             desc:   "Specify a decoder to use for this file"
+        formater:
+            label:  "Data Formater"
+            desc:   "Specify a formater to modify your data before deserializing"
         model:
             label:  "Object Model Class"
             desc:   "Specify a object model class used for deserializing data"
