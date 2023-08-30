@@ -29,12 +29,12 @@ var:
 ## Node Profile
 profile:
     connection:
-        title:  Flat Connector
+        title:  "Flat Connector"
     card:   
-        title:  Flat Files Connector
-        label:  Connect your remote files to Splash Sync
+        title:  "Flat Files Connector"
+        label:  "Connect your remote files to Splash Sync"
 
 ## Node Api Actions
 admin:
-    selftest:   Flat Files Connector Configuration
-    connect:    Touch remote file
+    selftest:   "Flat Files Connector Configuration"
+    connect:    "Touch remote file(s)"

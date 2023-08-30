@@ -1,28 +1,40 @@
-#
-### Node Variables 
-#var:
-#    apikey:
-#        label:  Clé API V3
-#        desc:   "Votre clé d'API principale vous offre un accès complet à votre compte."
-#        
-#    list:
-#        label:  Liste
-#        desc:   "La liste SendInBlue que vous voulez synchroniser avec Splash."
-#
-### Node Profile
-#profile:
-#    connection:
-#        title:  Connexion API
-#    card:   
-#        title:  SendInBlue API V3
-#        label:  Connectez votre compte SendInBlue pour synchroniser vos clients avec vos listes d'abonnés
-#
-### Node Api Actions
-#admin:
-#    selftest:   Configuration du Connecteur SendInBlue
-#    connect:    Connexion a l'API SendInBlue V3  
-#    webhooks:
-#        label:  Configuration des WebHooks
-#        desc:   Détecte et Configure les WebHooks pour Splash Sync
-#        msg:    Configuration des WebHooks Réussie
-#        err:    La Configuration des WebHooks a échouée
+
+## Node Variables 
+var:
+  objects:
+    label:  "Objets Connectés"
+    desc:   "Liste des objets connectés pour être lus à distance."
+
+  object:
+    label:  "Nom"
+    desc:   "Nom de l'objet Splash."
+    targets:
+      label:  "Fichiers distants"
+    url:
+      label:  "Url de connexion"
+      desc:   "Url de connexion au fichier. Exemple file:///path/to/file/myfile.csv"
+    parser:
+      label:  "Décodeur de fichier"
+      desc:   "Spécifiez un décodeur à utiliser pour ce fichier"
+    formater:
+      label:  "Formateur de données"
+      desc:   "Spécifiez un formateur pour modifier vos données avant de désérialiser"
+    model:
+      label:  "Classe de modèle d'objet"
+      desc:   "Spécifier une classe de modèle objet utilisée pour désérialiser les données"
+    ttl:
+      label:  "Délai d'actualisation des données"
+      desc:   "À quelle fréquence les données doivent être actualisées"
+
+## Node Profile
+profile:
+  connection:
+    title:  "Flat Connector"
+  card:
+    title:  "Connecteur de fichiers plats"
+    label:  "Connectez vos fichiers distants à Splash Sync"
+
+## Node Api Actions
+admin:
+  selftest:   "Configuration du connecteur de fichiers plats"
+  connect:    "lecture des fichiers distants"
