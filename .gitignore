@@ -34,3 +34,4 @@
 /public/
 /web/paddock.yml
 /reboot.sh
+/src/.php_cs.cache
