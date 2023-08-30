@@ -1,5 +1,18 @@
 <?php
 
+/*
+ *  This file is part of SplashSync Project.
+ *
+ *  Copyright (C) Splash Sync  <www.splashsync.com>
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Splash\Connectors\Flat\FileReader;
 
 use Gaufrette\Adapter;
@@ -50,7 +63,7 @@ class Ftp implements FileReaderInterface
         }
         //====================================================================//
         // Verify Filename
-        if (empty(basename($path))) {
+        if (empty(basename((string) $path))) {
             Splash::log()->err(sprintf("[FTP] %s: filename is not defined", $url));
         }
 
@@ -78,7 +91,7 @@ class Ftp implements FileReaderInterface
             return null;
         }
 
-        return $adapter->read($path) ?: null;
+        return (string) $adapter->read($path) ?: null;
     }
 
     //====================================================================//
@@ -88,7 +101,7 @@ class Ftp implements FileReaderInterface
     /**
      * @param string $url
      *
-     * @return Adapter|null
+     * @return null|Adapter
      */
     protected function getAdapter(string $url): ?Adapter
     {
@@ -100,10 +113,10 @@ class Ftp implements FileReaderInterface
             "/",
             (string) UrlAnalyser::getHost($url),
             array(
-                'port'     => (int) UrlAnalyser::getPort($url) ?: 21,
+                'port' => (int) UrlAnalyser::getPort($url) ?: 21,
                 'username' => UrlAnalyser::getUser($url),
                 'password' => UrlAnalyser::getPass($url),
-                'passive'  => true,
+                'passive' => true,
             )
         );
     }

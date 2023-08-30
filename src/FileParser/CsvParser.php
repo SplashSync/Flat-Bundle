@@ -1,5 +1,18 @@
 <?php
 
+/*
+ *  This file is part of SplashSync Project.
+ *
+ *  Copyright (C) Splash Sync  <www.splashsync.com>
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Splash\Connectors\Flat\FileParser;
 
 use Splash\Client\Splash;
@@ -37,7 +50,7 @@ class CsvParser implements FileParserInterface
      */
     public function handle(string $extension): bool
     {
-        return in_array($extension, array("csv", ".csv"));
+        return in_array($extension, array("csv", ".csv"), true);
     }
 
     /**
@@ -63,11 +76,14 @@ class CsvParser implements FileParserInterface
      */
     protected static function toRows(string $contents): array
     {
-        $fp = fopen('php://temp','r+');
+        $fopen = fopen('php://temp', 'r+');
+        if (!$fopen) {
+            return array();
+        }
         $rows = array();
-        fwrite($fp, $contents);
-        rewind($fp); //rewind to process CSV
-        while (($row = fgetcsv($fp, 0, static::$separator)) !== FALSE) {
+        fwrite($fopen, $contents);
+        rewind($fopen); //rewind to process CSV
+        while (($row = fgetcsv($fopen, 0, static::$separator)) !== false) {
             $rows[] = $row;
         }
 
@@ -80,8 +96,8 @@ class CsvParser implements FileParserInterface
     protected static function toAssociative(array $rows): ?array
     {
         $header = array_shift($rows);
-        $csv    = array();
-        foreach($rows as $row) {
+        $csv = array();
+        foreach ($rows as $row) {
             $csv[] = array_combine($header, $row);
         }
 

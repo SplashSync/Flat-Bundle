@@ -1,5 +1,18 @@
 <?php
 
+/*
+ *  This file is part of SplashSync Project.
+ *
+ *  Copyright (C) Splash Sync  <www.splashsync.com>
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Splash\Connectors\Flat\FileReader;
 
 use Gaufrette\Adapter;
@@ -66,7 +79,7 @@ class Local implements FileReaderInterface
             return null;
         }
 
-        return $adapter->read(basename($path)) ?: null;
+        return (string) $adapter->read(basename($path)) ?: null;
     }
 
     //====================================================================//
@@ -76,7 +89,7 @@ class Local implements FileReaderInterface
     /**
      * @param string $url
      *
-     * @return Adapter|null
+     * @return null|Adapter
      */
     private function getAdapter(string $url): ?Adapter
     {
@@ -85,6 +98,6 @@ class Local implements FileReaderInterface
             return Splash::log()->errNull(sprintf("[%s] Read Fail: File not found", $url));
         }
 
-        return new Adapter\Local(dirname($path),false);
+        return new Adapter\Local(dirname((string) $path), false);
     }
 }

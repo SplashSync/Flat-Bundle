@@ -3,7 +3,7 @@
 /*
  *  This file is part of SplashSync Project.
  *
- *  Copyright (C) 2015-2021 Splash Sync  <www.splashsync.com>
+ *  Copyright (C) Splash Sync  <www.splashsync.com>
  *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -17,11 +17,10 @@ namespace Splash\Connectors\Flat\Connector;
 
 use ArrayObject;
 use Exception;
-use Gaufrette\Filesystem;
 use Psr\Log\LoggerInterface;
-use Splash\Bundle\Models\Connectors;
 use Splash\Bundle\Interfaces\Connectors\TrackingInterface;
 use Splash\Bundle\Models\AbstractConnector;
+use Splash\Bundle\Models\Connectors;
 use Splash\Connectors\Flat\Controller\RefreshAction;
 use Splash\Connectors\Flat\Form\EditFormType;
 use Splash\Connectors\Flat\Objects\FlatObject;
@@ -29,13 +28,13 @@ use Splash\Connectors\Flat\OpenApi\Connexion\FlatConnexion;
 use Splash\Connectors\Flat\OpenApi\Models;
 use Splash\Connectors\Flat\Services\DataCollector;
 use Splash\Core\SplashCore as Splash;
-use Splash\Models\AbstractObject;
 use Splash\OpenApi\Hydrator\Hydrator;
-use Splash\OpenApi\Models\Connexion\ConnexionInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Flat Files Connector for Splash
+ *
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class FlatConnector extends AbstractConnector implements TrackingInterface
 {
@@ -50,11 +49,6 @@ class FlatConnector extends AbstractConnector implements TrackingInterface
     protected static array $widgetsMap = array(
         "SelfTest" => "Splash\\Connectors\\Flat\\Widgets\\SelfTest",
     );
-
-    /**
-     * @var null|ConnexionInterface
-     */
-    private ?ConnexionInterface $connexion;
 
     /**
      * Object Hydrator
@@ -78,13 +72,6 @@ class FlatConnector extends AbstractConnector implements TrackingInterface
     ) {
         parent::__construct($eventDispatcher, $logger);
     }
-
-    /**
-     * Gaufrette Filesystem
-     *
-     * @var Filesystem
-     */
-    private Filesystem $filesystem;
 
     /**
      * {@inheritdoc}
@@ -147,11 +134,11 @@ class FlatConnector extends AbstractConnector implements TrackingInterface
         //====================================================================//
         // Server Logo & Ico
         $informations->icoraw = Splash::file()->readFileContents(
-            dirname(dirname(__FILE__))."/Resources/public/img/Flat-Icon.ico"
+            dirname(__FILE__, 2)."/Resources/public/img/Flat-Icon.ico"
         );
         $informations->logourl = null;
         $informations->logoraw = Splash::file()->readFileContents(
-            dirname(dirname(__FILE__))."/Resources/public/img/Flat-Logo.png"
+            dirname(__FILE__, 2)."/Resources/public/img/Flat-Logo.png"
         );
         //====================================================================//
         // Server Informations
@@ -312,11 +299,16 @@ class FlatConnector extends AbstractConnector implements TrackingInterface
 
         //====================================================================//
         // Get Generic Object Types List
+        /** @phpstan-ignore-next-line  */
         return array_keys($this->getConfiguration()["Objects"] ?? array());
     }
 
     /**
-     * {@inheritdoc}
+     * Refresh Object Remote Data Cache
+     *
+     * @param string $objectType
+     *
+     * @return bool
      */
     public function refreshObjectCache(string $objectType) : bool
     {
@@ -328,7 +320,6 @@ class FlatConnector extends AbstractConnector implements TrackingInterface
             return Splash::log()->msg(
                 sprintf("[%s] Refresh Done !", $objectType)
             );
-
         } catch (Exception $e) {
             return Splash::log()->err(
                 sprintf("[%s] Refresh Fail %s", $objectType, $e->getMessage())
@@ -345,9 +336,9 @@ class FlatConnector extends AbstractConnector implements TrackingInterface
      *
      * @throws Exception
      *
-     * @return ConnexionInterface
+     * @return FlatConnexion
      */
-    public function getConnexion() : ConnexionInterface
+    public function getConnexion() : FlatConnexion
     {
         return new FlatConnexion($this->dataCollector);
     }
@@ -375,27 +366,13 @@ class FlatConnector extends AbstractConnector implements TrackingInterface
     }
 
     //====================================================================//
-    //  DEBUG FEATURES
+    //  OBJECTS FEATURES
     //====================================================================//
-
-    /**
-     * Check If Server is In Debug Mode
-     *
-     * @return bool
-     */
-    public function isDebugMode() : bool
-    {
-        return true;
-    }
 
     /**
      * Return Configuration for Requested Object Type
      *
-     * @param string $objectType
-     *
      * @throws Exception
-     *
-     * @return AbstractObject
      */
     private function getObjectConfiguration(string $objectType) : array
     {
@@ -405,11 +382,7 @@ class FlatConnector extends AbstractConnector implements TrackingInterface
     /**
      * Return a New Instance of Requested Object Type Class
      *
-     * @param string $objectType
-     *
      * @throws Exception
-     *
-     * @return FlatObject
      */
     private function getObjectLocalClass(string $objectType) : FlatObject
     {
@@ -438,6 +411,4 @@ class FlatConnector extends AbstractConnector implements TrackingInterface
 
         return $genericObject;
     }
-
-
 }

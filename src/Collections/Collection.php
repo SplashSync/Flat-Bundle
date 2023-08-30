@@ -1,20 +1,38 @@
 <?php
 
+/*
+ *  This file is part of SplashSync Project.
+ *
+ *  Copyright (C) Splash Sync  <www.splashsync.com>
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Splash\Connectors\Flat\Collections;
 
+use ArrayIterator;
+use Closure;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Exception;
 
 /**
- * @psalm-type T
+ * @template-extends ArrayCollection<string, CollectionItem>
+ *
+ * @method Collection<string,    CollectionItem> filter(Closure $p)()
+ * @method ArrayIterator<string, CollectionItem> getIterator()
  */
 class Collection extends ArrayCollection
 {
     /**
      * Date of Last Update
      *
-     * @var DateTime|null
+     * @var null|DateTime
      */
     private ?DateTime $updated = null;
 
@@ -47,7 +65,8 @@ class Collection extends ArrayCollection
         $iterator = $this->getIterator();
         $iterator->rewind();
         /** @var CollectionItem $item */
-        while ($item = $iterator->current()) {
+        while ($iterator->valid()) {
+            $item = $iterator->current();
             $item->checkDeleted($date);
             $iterator->next();
         }
@@ -72,7 +91,7 @@ class Collection extends ArrayCollection
         foreach ($objectIds as $objectId) {
             //====================================================================//
             // Get Object from Collection
-            /** @var CollectionItem|null $collectionItem */
+            /** @var null|CollectionItem $collectionItem */
             if (!$collectionItem = $this->get($objectId)) {
                 continue;
             }
@@ -99,12 +118,9 @@ class Collection extends ArrayCollection
         }
         $filterKeys = array_flip($filterKeys);
 
-        return $this->filter(function(CollectionItem $item) use ($filter, $filterKeys) {
+        return $this->filter(function (CollectionItem $item) use ($filter, $filterKeys) {
             return $item->isSearched($filter, $filterKeys);
         });
-
-
-        return $this;
     }
 
     /**
@@ -121,7 +137,7 @@ class Collection extends ArrayCollection
      * @return array[]     */
     public function getData(): array
     {
-        return array_map(function(CollectionItem $item) {
+        return array_map(function (CollectionItem $item) {
             return $item->toArray();
         }, $this->toArray());
     }
@@ -133,7 +149,7 @@ class Collection extends ArrayCollection
      */
     public function getCreated(): Collection
     {
-        return $this->filter(function(CollectionItem $item) {
+        return $this->filter(function (CollectionItem $item) {
             return $item->isCommitCreated();
         });
     }
@@ -145,7 +161,7 @@ class Collection extends ArrayCollection
      */
     public function getUpdated(): Collection
     {
-        return $this->filter(function(CollectionItem $item) {
+        return $this->filter(function (CollectionItem $item) {
             return $item->isCommitUpdated();
         });
     }
@@ -157,7 +173,7 @@ class Collection extends ArrayCollection
      */
     public function getDeleted(): Collection
     {
-        return $this->filter(function(CollectionItem $item) {
+        return $this->filter(function (CollectionItem $item) {
             return $item->isCommitDeleted();
         });
     }

@@ -1,5 +1,18 @@
 <?php
 
+/*
+ *  This file is part of SplashSync Project.
+ *
+ *  Copyright (C) Splash Sync  <www.splashsync.com>
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Splash\Connectors\Flat\Collections;
 
 use DateTime;
@@ -151,7 +164,7 @@ class CollectionItem
     /**
      * Data string $filter, array $filterKeys
      *
-     * @param string $filter
+     * @param string   $filter
      * @param string[] $filterKeys
      *
      * @return bool
@@ -159,12 +172,13 @@ class CollectionItem
     public function isSearched(string $filter, array $filterKeys): bool
     {
         if (empty($filterKeys)) {
-            return in_array($filter, $this->data);
+            return in_array($filter, $this->data, false);
         }
 
         return in_array(
             $filter,
-            array_intersect_key($this->data, $filterKeys)
+            array_intersect_key($this->data, $filterKeys),
+            false
         );
     }
 }
