@@ -1,5 +1,18 @@
 <?php
 
+/*
+ *  This file is part of SplashSync Project.
+ *
+ *  Copyright (C) Splash Sync  <www.splashsync.com>
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Splash\Connectors\Flat\OpenApi\Connexion;
 
 use Splash\Bundle\Models\Connectors\ConfigurationAwareTrait;
@@ -36,14 +49,14 @@ class FlatConnexion extends NullConnexion
         $this->dataCollector->configure($this->getSplashType(), $this->getWebserviceId(), $this->getConfiguration());
         //====================================================================//
         // Get Objects List
-        if (str_contains($path, self::LIST)) {
+        if (str_contains((string) $path, self::LIST)) {
             //====================================================================//
             // Get Filtered Collection
             $collection = $this->dataCollector
                 ->getCollection()
                 ->filterByModelKeys(
                     $data["filter"] ?? null,
-                    $this->dataCollector->getModelFilterKeys()?? array()
+                    $this->dataCollector->getModelFilterKeys() ?? array()
                 )
             ;
             //====================================================================//
@@ -51,21 +64,23 @@ class FlatConnexion extends NullConnexion
             return array(
                 "total" => $collection->count(),
                 "_embedded" => array(
-                    "items" => $collection->paginate($data["limit"] ?? 25, $data["page"] ?? 1)->getData()
+                    "items" => $collection
+                        ->paginate((int) ($data["limit"] ?? 25), (int) ($data["page"] ?? 1))
+                        ->getData()
                 ),
             );
         }
         //====================================================================//
         // Get Objects Data
-        if (str_contains($path, self::READ)) {
+        if (str_contains((string) $path, self::READ)) {
             //====================================================================//
             // Extract Objects ID
             $objectId = null;
-            sscanf($path, self::READ."/%s", $objectId);
+            sscanf((string) $path, self::READ."/%s", $objectId);
             if ($objectId) {
                 $objectItem = $this->dataCollector
                     ->getCollection()
-                    ->get($objectId)
+                    ->get((string) $objectId)
                 ;
 
                 return ($objectItem instanceof CollectionItem) ? $objectItem->toArray() : null;

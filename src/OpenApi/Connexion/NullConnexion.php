@@ -1,5 +1,18 @@
 <?php
 
+/*
+ *  This file is part of SplashSync Project.
+ *
+ *  Copyright (C) Splash Sync  <www.splashsync.com>
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Splash\Connectors\Flat\OpenApi\Connexion;
 
 use Httpful\Request;
@@ -9,7 +22,7 @@ use Splash\OpenApi\Models\Connexion\ConnexionInterface;
 class NullConnexion implements ConnexionInterface
 {
     const MSG = "This is NULL Connexion!! Should not be used...";
-    
+
     /**
      * @inheritDoc
      */
@@ -24,7 +37,6 @@ class NullConnexion implements ConnexionInterface
     public function getRaw(?string $path, array $data = null, bool $absoluteUrl = false): ?string
     {
         throw new \Exception(self::MSG);
-
     }
 
     /**
@@ -41,7 +53,6 @@ class NullConnexion implements ConnexionInterface
     public function put(string $path, array $data): ?array
     {
         throw new \Exception(self::MSG);
-
     }
 
     /**
@@ -50,7 +61,6 @@ class NullConnexion implements ConnexionInterface
     public function patch(string $path, array $data = null): ?array
     {
         throw new \Exception(self::MSG);
-
     }
 
     /**
@@ -77,7 +87,7 @@ class NullConnexion implements ConnexionInterface
         throw new \Exception(self::MSG);
     }
 
-    /**.
+    /** .
      * @inheritDoc
      */
     public function getLastResponse(): ?Response

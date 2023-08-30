@@ -3,7 +3,7 @@
 /*
  *  This file is part of SplashSync Project.
  *
- *  Copyright (C) 2015-2021 Splash Sync  <www.splashsync.com>
+ *  Copyright (C) Splash Sync  <www.splashsync.com>
  *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -22,6 +22,7 @@ use Splash\Connectors\Flat\Connector\FlatConnector;
 use Splash\Connectors\Flat\OpenApi\Connexion\FlatConnexion;
 use Splash\OpenApi\Action\JsonHal;
 use Splash\OpenApi\Models\Objects\AbstractApiObject;
+use Splash\OpenApi\Visitor\AbstractVisitor as Visitor;
 use Splash\OpenApi\Visitor\JsonHalVisitor;
 
 /**
@@ -91,9 +92,6 @@ class FlatObject extends AbstractApiObject implements TrackingInterface
     /**
      * Class Constructor
      *
-     * @param FlatConnector $parentConnector
-     * @param string $model
-     *
      * @throws Exception
      */
     public function __construct(
@@ -118,13 +116,15 @@ class FlatObject extends AbstractApiObject implements TrackingInterface
         );
     }
 
-
     public function configure(string $type, string $webserviceId, array $configuration): self
     {
         self::$name = ucwords($type);
         self::$description = sprintf("Flat %s File", $type);
 
-        $this->visitor->getConnexion()->configure($type, $webserviceId, $configuration);
+        $connexion = $this->visitor->getConnexion();
+        if ($connexion instanceof FlatConnexion) {
+            $connexion->configure($type, $webserviceId, $configuration);
+        }
 
         $this->visitor->setModel(
             $this->visitor->getModel(),
@@ -132,6 +132,7 @@ class FlatObject extends AbstractApiObject implements TrackingInterface
             FlatConnexion::READ."/{id}"
         );
 
+        /** @phpstan-ignore-next-line  */
         return parent::configure($type, $webserviceId, $configuration);
     }
 
@@ -157,7 +158,7 @@ class FlatObject extends AbstractApiObject implements TrackingInterface
      */
     public function getVisitor(): JsonHalVisitor
     {
-        if (!isset($this->visitor)) {
+        if (!$this->visitor instanceof JsonHalVisitor) {
             $this->visitor = new JsonHalVisitor(
                 $this->connector->getConnexion(),
                 $this->connector->getHydrator(),
@@ -190,7 +191,6 @@ class FlatObject extends AbstractApiObject implements TrackingInterface
      */
     public function getUpdatedIds(): array
     {
-
         try {
             $connexion = $this->getVisitor()->getConnexion();
         } catch (Exception $e) {
