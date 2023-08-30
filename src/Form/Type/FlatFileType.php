@@ -1,9 +1,22 @@
 <?php
 
+/*
+ *  This file is part of SplashSync Project.
+ *
+ *  Copyright (C) Splash Sync  <www.splashsync.com>
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Splash\Connectors\Flat\Form\Type;
 
 use Burgov\Bundle\KeyValueFormBundle\Form\Type\KeyValueType;
-use Splash\Connectors\Flat\Services\FileReader;
+use Splash\Connectors\Flat\Services\DataFormater;
 use Splash\Connectors\Flat\Services\FileParser;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -13,12 +26,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 class FlatFileType extends AbstractType
 {
     public function __construct(
-        private FileReader $adapterManager,
         private FileParser $parserManager,
+        private DataFormater $dataFormater,
     ) {
-
     }
-
 
     /**
      * Build Optilog Edit Form
@@ -47,6 +58,13 @@ class FlatFileType extends AbstractType
                     'required' => true,
                     'choices' => $this->parserManager->getChoices()
                 ),
+                'translation_domain' => "FlatBundle",
+            ))
+            ->add('formater', ChoiceType::class, array(
+                'label' => "var.object.formater.label",
+                'help' => "var.object.formater.desc",
+                'required' => true,
+                'choices' => $this->dataFormater->getChoices(),
                 'translation_domain' => "FlatBundle",
             ))
             ->add('model', TextType::class, array(

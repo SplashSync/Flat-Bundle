@@ -3,7 +3,7 @@
 /*
  *  This file is part of SplashSync Project.
  *
- *  Copyright (C) 2015-2021 Splash Sync  <www.splashsync.com>
+ *  Copyright (C) Splash Sync  <www.splashsync.com>
  *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -15,11 +15,6 @@
 
 namespace Splash\Connectors\Flat\Form;
 
-use Burgov\Bundle\KeyValueFormBundle\Form\Type\KeyValueType;
-use Splash\Connectors\Flat\Form\Type\FlatFileType;
-use Splash\Connectors\Flat\Helpers\AdapterBuilder;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
