@@ -1,10 +1,27 @@
 
 ## Node Variables 
 var:
-    url:
-        label:  "Target Url"
-        desc:   "Access Url for Target File."
+    objects:
+        label:  "Connected Objects"
+        desc:   "Objects Connected for Remote Parsing."
 
+    object:
+        label:  "Name"
+        desc:   "Name of Splash Object."
+        targets:
+            label:  "Remote files"
+        url:
+            label:  "File Connexion string"
+            desc:   "Full url for reading file. I.e file:///path/to/file/myfile.csv"
+        parser:
+            label:  "File Decoder"
+            desc:   "Specify a decoder to use for this file"
+        model:
+            label:  "Object Model Class"
+            desc:   "Specify a object model class used for deserializing data"
+        ttl:
+            label:  "Data refresh delay"
+            desc:   "How often data should be refreshed"
 
 ## Node Profile
 profile:
