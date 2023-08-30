@@ -42,10 +42,54 @@ services:
             - './docker/toolkit/splash.yml:/app/config/packages/splash.yml:ro'
             # Uncomment to use Local Sources instead of Release
             - './src/:/app/vendor/splash/flat/src/:ro'
+            - './src/:/app/connectors/Flat:ro'
         hostname:           toolkit.optilog.local
         networks:
-            optilog:        { ipv4_address: 172.117.0.100, aliases: [ toolkit.flat.local ] }
+            flat:           { ipv4_address: 172.117.0.100, aliases: [ toolkit.flat.local ] }
             splashsync:     { aliases: [ toolkit.flat.local ] }
+
+    ################################################################################
+    # HTTP Sandbox Container
+    flat-http:
+        image:          sebp/lighttpd
+        container_name: http.flat.local
+        volumes:
+            - ./src/Resources/samples:/var/www/localhost/htdocs
+        ports:
+            - "80:80"
+        tty: true
+        networks:
+            flat:      { ipv4_address: 172.117.0.101, aliases: [ http.flat.local ] }
+
+    ################################################################################
+    # SFTP Sandbox Container
+    flat-sftp:
+        image:          atmoz/sftp:alpine
+        container_name: sftp.flat.local
+        volumes:
+            - ./src/Resources/samples:/home/admin
+        ports:
+            - "2222:22"
+        command: admin:p@ssword:1001
+        networks:
+            flat:      { ipv4_address: 172.117.0.102, aliases: [ sftp.flat.local ] }
+
+    ################################################################################
+    # FTP Sandbox Container
+    flat-ftp:
+        image:          stilliard/pure-ftpd
+        container_name: ftp.flat.local
+        volumes:
+            - ./src/Resources/samples:/home/admin
+        ports:
+            - "2221:21"
+        environment:
+            PUBLICHOST:    "ftp.flat.local"
+            FTP_USER_NAME: admin
+            FTP_USER_PASS: p@ssword
+            FTP_USER_HOME: /home/admin
+        networks:
+            flat:      { ipv4_address: 172.117.0.103, aliases: [ ftp.flat.local ] }
 
     ################################################################################
     # PHP 8.0

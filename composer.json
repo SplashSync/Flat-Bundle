@@ -20,7 +20,8 @@
 
     "autoload": {
         "psr-4": { 
-            "Splash\\Connectors\\Flat\\":     "src/"
+            "Splash\\Connectors\\Flat\\":       "src/",
+            "Splash\\Flat\\Models\\":           "models/"
         }
     },
     
@@ -31,15 +32,18 @@
             "vendor/splash/php-bundle/src/Tests/KernelTestCase.php"
         ],
         "psr-4": { 
-            "Splash\\Connectors\\Optilog\\Test\\":     "tests/"
+            "Splash\\Connectors\\Flat\\Test\\":     "tests/"
         }        
     },
     
     "require": {
-        "php":                                          "^7.4|^8.0",
+        "php":                                          "^8.0",
         "ext-json":                                     "*",
         "splash/php-bundle":                            "dev-master",
-        "burgov/key-value-form-bundle":                 "@stable"
+        "splash/openapi":                               "dev-master",
+        "burgov/key-value-form-bundle":                 "@stable",
+        "gaufrette/ftp-adapter":                        "@stable",
+        "gaufrette/phpseclib-sftp-adapter":             "@stable"
     },
     
     "require-dev": {
@@ -53,5 +57,10 @@
 
         "doctrine/doctrine-bundle":                     "^2.5",
         "doctrine/orm":                                 "^2.6"
+    },
+    "config": {
+        "allow-plugins": {
+            "phpro/grumphp": true
+        }
     }
 }
