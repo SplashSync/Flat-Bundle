@@ -1,0 +1,143 @@
+################################################################################
+#
+#  This file is part of SplashSync Project.
+#
+#  Copyright (C) Splash Sync <www.splashsync.com>
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#
+#  For the full copyright and license information, please view the LICENSE
+#  file that was distributed with this source code.
+#
+#  @author Bernard Paquier <contact@splashsync.com>
+#
+################################################################################
+
+################################################################
+# Set any variables we need
+variables:
+    # Configure mysql environment variables (https://hub.docker.com/r/_/mysql/)
+    MYSQL_DATABASE:               symfony
+    MYSQL_ROOT_PASSWORD:          OpenApi-Bundle
+    COMPOSER_MEMORY_LIMIT:        -1
+    SYMFONY_DEPRECATIONS_HELPER:  disabled
+
+################################################################
+# Defined Pipeline Stages
+stages:
+  - quality
+#  - functional
+#  - deploy
+
+################################################################
+# Quality Tests
+################################################################
+
+.quality_tests:    &quality_tests
+    stage:      quality
+    tags:
+        - Dedicated
+    services:
+        - mysql:5.7
+    ################################################################################
+    # Install & Configure Environment
+    before_script:
+        # Setup Travis
+        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/ci/configure.sh  | sh
+        # Deploy Symfony Files
+        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/symfony/deploy.sh | sh
+        # Setup Symfony Version & Create Database
+        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/symfony/configure.sh | sh
+        # Install Symfony
+        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/symfony/install.sh | sh
+
+    ################################################################################
+    # Run Test Script
+    script:
+        # Execute Grumphp Testsuite
+        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/ci/grumphp.sh  | sh
+
+    ################################################################################
+    # Run After Script
+    after_script:
+      - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/ci/after.sh | sh
+
+quality:php-8.1:
+    image: registry.gitlab.com/badpixxel-projects/php-sdk:php-8.0
+    <<: *quality_tests
+
+quality:php-8.0:
+    image: registry.gitlab.com/badpixxel-projects/php-sdk:php-8.0
+    <<: *quality_tests
+
+################################################################
+# Functional Tests
+################################################################
+
+#functional:
+#    image:      docker:stable
+#    stage:      functional
+#    retry:      2
+#    tags:
+#        - Dedicated
+#    services:
+#        - docker:dind
+#    ################################################################################
+#    # Install & Configure Environment
+#    before_script:
+#        # Install Git, Bash, Curl & Docker Compose
+#        - apk add --no-cache curl bash git docker-compose
+#        # Install & Build Docker Compose
+#        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/toolkit/build.sh  | bash
+#    ################################################################################
+#    # Run Test Script
+#    script:
+#        # Wait for container to Start
+#        - sleep 10
+#        - docker-compose exec -T toolkit curl http://openapi/
+#        # Execute PhpUnit Tests
+#        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/toolkit/phpunit.sh  | bash
+#        # Build Splash Manifest
+#        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/toolkit/manifest.sh  | bash
+#        - docker-compose exec -T toolkit ls -l
+#
+#    ################################################################################
+#    # Run After Script
+#    after_script:
+#        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/toolkit/after.sh  | bash
+#    artifacts:
+#        paths:
+#            - logs
+#            - manifest
+
+#################################################################
+## Trigger Toolkit Docker Build
+#################################################################
+#toolkit:
+#    stage:      deploy
+#    trigger:
+#        project:  SplashSync/Toolkit
+#        strategy: depend
+
+#################################################################
+## Build Documentation
+#################################################################
+#pages:
+#    image:    registry.gitlab.com/badpixxel-projects/php-sdk:jekyll
+#    stage:    deploy
+#    tags:
+#      - Dedicated
+#    services:
+#      - docker:dind
+#    ################################################################################
+#    # Run Test Script
+#    script:
+#      # Run Composer to Build deps
+#      - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/ci/composer.sh  | bash
+#      # Build Documentation
+#      - php vendor/bin/grumphp run --tasks=build-docs
+#    artifacts:
+#        paths:
+#            - public
