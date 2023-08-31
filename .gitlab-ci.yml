@@ -91,7 +91,7 @@ functional:
     script:
         # Wait for container to Start
         - sleep 10
-        - docker-compose exec -T toolkit curl http://openapi/
+        - docker-compose exec -T toolkit curl http://toolkit/
         # Execute PhpUnit Tests
         - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/toolkit/phpunit.sh  | bash
         # Build Splash Manifest
