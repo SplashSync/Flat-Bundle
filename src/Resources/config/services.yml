@@ -8,6 +8,8 @@ services:
     # AutoWire for Adapter Factories
     _instanceof:
         Splash\Connectors\Flat\FileReader\FileReaderInterface:
+            bind:
+                $projectDir: "%kernel.project_dir%"
             tags: ['splash.connector.flat.reader']
 
         Splash\Connectors\Flat\FileParser\FileParserInterface:

@@ -18,23 +18,17 @@ namespace Splash\Connectors\Flat\FileReader;
 use Gaufrette\Adapter;
 use Splash\Client\Splash;
 use Splash\Connectors\Flat\Helpers\UrlAnalyser;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Read Files from Local System using Gaufrette Local Adapter
  */
 class Local implements FileReaderInterface
 {
-    private string $projectDir;
-
     /**
-     * Service Cosntructor
-     *
-     * @param KernelInterface $kernel
+     * Service Constructor
      */
-    public function __construct(KernelInterface $kernel)
+    public function __construct(private string $projectDir)
     {
-        $this->projectDir = $kernel->getProjectDir();
     }
 
     //====================================================================//
