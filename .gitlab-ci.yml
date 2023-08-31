@@ -39,8 +39,6 @@ stages:
     stage:      quality
     tags:
         - Dedicated
-    services:
-        - mysql:5.7
     ################################################################################
     # Install & Configure Environment
     before_script:
@@ -76,41 +74,41 @@ quality:php-8.0:
 # Functional Tests
 ################################################################
 
-#functional:
-#    image:      docker:stable
-#    stage:      functional
-#    retry:      2
-#    tags:
-#        - Dedicated
-#    services:
-#        - docker:dind
-#    ################################################################################
-#    # Install & Configure Environment
-#    before_script:
-#        # Install Git, Bash, Curl & Docker Compose
-#        - apk add --no-cache curl bash git docker-compose
-#        # Install & Build Docker Compose
-#        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/toolkit/build.sh  | bash
-#    ################################################################################
-#    # Run Test Script
-#    script:
-#        # Wait for container to Start
-#        - sleep 10
-#        - docker-compose exec -T toolkit curl http://openapi/
-#        # Execute PhpUnit Tests
-#        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/toolkit/phpunit.sh  | bash
-#        # Build Splash Manifest
-#        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/toolkit/manifest.sh  | bash
-#        - docker-compose exec -T toolkit ls -l
-#
-#    ################################################################################
-#    # Run After Script
-#    after_script:
-#        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/toolkit/after.sh  | bash
-#    artifacts:
-#        paths:
-#            - logs
-#            - manifest
+functional:
+    image:      docker:stable
+    stage:      functional
+    retry:      2
+    tags:
+        - Dedicated
+    services:
+        - docker:dind
+    ################################################################################
+    # Install & Configure Environment
+    before_script:
+        # Install Git, Bash, Curl & Docker Compose
+        - apk add --no-cache curl bash git docker-compose
+        # Install & Build Docker Compose
+        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/toolkit/build.sh  | bash
+    ################################################################################
+    # Run Test Script
+    script:
+        # Wait for container to Start
+        - sleep 10
+        - docker-compose exec -T toolkit curl http://openapi/
+        # Execute PhpUnit Tests
+        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/toolkit/phpunit.sh  | bash
+        # Build Splash Manifest
+        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/toolkit/manifest.sh  | bash
+        - docker-compose exec -T toolkit ls -l
+
+    ################################################################################
+    # Run After Script
+    after_script:
+        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/toolkit/after.sh  | bash
+    artifacts:
+        paths:
+            - logs
+            - manifest
 
 #################################################################
 ## Trigger Toolkit Docker Build
