@@ -24,6 +24,9 @@
 # For a faster access to you container, you can add this IP to /etc/hosts
 # 
 # 172.117.0.100         toolkit.flat.local
+# 172.117.0.101         http.flat.local
+# 172.117.0.102         sftp.flat.local
+# 172.117.0.103         ftp.flat.local
 #
 ################################################################################
 
@@ -36,14 +39,13 @@ services:
     # Splash Toolkit Container   
     toolkit:
         image: 'splashsync/toolkit'
-        container_name: flat-toolkit
+        container_name:     toolkit.flat.local
         volumes:
             # Specify Local Configuration File
             - './docker/toolkit/splash.yml:/app/config/packages/splash.yml:ro'
             # Uncomment to use Local Sources instead of Release
             - './src/:/app/vendor/splash/flat/src/:ro'
-            - './src/:/app/connectors/Flat:ro'
-        hostname:           toolkit.optilog.local
+        hostname:           toolkit.flat.local
         networks:
             flat:           { ipv4_address: 172.117.0.100, aliases: [ toolkit.flat.local ] }
             splashsync:     { aliases: [ toolkit.flat.local ] }

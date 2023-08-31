@@ -26,12 +26,7 @@
     },
     
     "autoload-dev": {
-        "classmap": [ "tests/Kernel.php" ],
-        "files":    [ 
-            "vendor/splash/phpcore/inc/Splash.Inc.php",
-            "vendor/splash/php-bundle/src/Tests/KernelTestCase.php"
-        ],
-        "psr-4": { 
+        "psr-4": {
             "Splash\\Connectors\\Flat\\Test\\":     "tests/"
         }        
     },
@@ -50,9 +45,11 @@
         "splash/console":                               "dev-master",
         "badpixxel/php-sdk":                            "dev-main",
 
-        "symfony/symfony":                              "^3.4|^4.4",
+        "symfony/symfony":                              "^5.4",
+        "symfony/runtime":                              "^5.4",
         "symfony/monolog-bundle":                       "*",
         "symfony/phpunit-bridge":                       "*",
+        "symfony/debug-pack":                           "*",
         "monolog/monolog":                              "^1.0",
 
         "doctrine/doctrine-bundle":                     "^2.5",
@@ -60,7 +57,8 @@
     },
     "config": {
         "allow-plugins": {
-            "phpro/grumphp": true
+            "phpro/grumphp": true,
+            "symfony/runtime": true
         }
     }
 }
