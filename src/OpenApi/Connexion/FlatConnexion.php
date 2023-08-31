@@ -59,6 +59,7 @@ class FlatConnexion extends NullConnexion
                     $this->dataCollector->getModelFilterKeys() ?? array()
                 )
             ;
+
             //====================================================================//
             // Get Response
             return array(

@@ -26,10 +26,15 @@ class EmptyModel implements FlatModelInterface
      * Unique identifier.
      *
      * @var string
+     *
      * @SerializedName("id")
+     *
      * @Assert\NotNull()
+     *
      * @Assert\Type("string")
+     *
      * @Type("string")
+     *
      * @Groups ({"Read", "List"})
      */
     public string $id;

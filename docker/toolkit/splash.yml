@@ -30,7 +30,7 @@ splash:
                 Objects:
                     Basic:
                         targets:
-                            file:///app/connectors/Flat/Resources/samples/Basic/basic.json: auto
+                            file:///app/vendor/splash/flat/src/Resources/samples/Basic/basic.json: auto
                         model:  Splash\Connectors\Flat\OpenApi\Models\Samples\Basic
                         ttl:    "-1 hour"
 

@@ -18,12 +18,25 @@ namespace Splash\Connectors\Flat\FileReader;
 use Gaufrette\Adapter;
 use Splash\Client\Splash;
 use Splash\Connectors\Flat\Helpers\UrlAnalyser;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Read Files from Local System using Gaufrette Local Adapter
  */
 class Local implements FileReaderInterface
 {
+    private string $projectDir;
+
+    /**
+     * Service Cosntructor
+     *
+     * @param KernelInterface $kernel
+     */
+    public function __construct(KernelInterface $kernel)
+    {
+        $this->projectDir = $kernel->getProjectDir();
+    }
+
     //====================================================================//
     // File Reader Implementation
     //====================================================================//
@@ -51,7 +64,7 @@ class Local implements FileReaderInterface
     {
         //====================================================================//
         // Verify File Exists
-        $path = UrlAnalyser::getRealPath($url);
+        $path = UrlAnalyser::getRealPath($url, $this->projectDir);
         if (empty($path)) {
             Splash::log()->err(sprintf("File %s was not found on local machine", $url));
         }
@@ -75,7 +88,7 @@ class Local implements FileReaderInterface
         if (!($adapter = $this->getAdapter($url))) {
             return null;
         }
-        if (!($path = UrlAnalyser::getRealPath($url))) {
+        if (!($path = UrlAnalyser::getRealPath($url, $this->projectDir))) {
             return null;
         }
 
@@ -93,7 +106,8 @@ class Local implements FileReaderInterface
      */
     private function getAdapter(string $url): ?Adapter
     {
-        $path = UrlAnalyser::getRealPath($url);
+        $path = UrlAnalyser::getRealPath($url, $this->projectDir);
+
         if ($path && !$this->validate($url)) {
             return Splash::log()->errNull(sprintf("[%s] Read Fail: File not found", $url));
         }

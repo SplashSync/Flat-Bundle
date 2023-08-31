@@ -192,6 +192,7 @@ class Collection extends ArrayCollection
         if (!$this->updated) {
             return true;
         }
+
         //====================================================================//
         // Collection Needs Update
         try {

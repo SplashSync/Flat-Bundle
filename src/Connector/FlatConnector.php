@@ -124,7 +124,7 @@ class FlatConnector extends AbstractConnector implements TrackingInterface
         //====================================================================//
         // Company Informations
         $informations->company = "SplashSync";
-        $informations->address = "";
+        $informations->address = "--";
         $informations->zip = "33000";
         $informations->town = "Bordeaux";
         $informations->country = "France";

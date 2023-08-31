@@ -1,6 +1,5 @@
 <?php
 
-
 /*
  *  This file is part of SplashSync Project.
  *
@@ -25,12 +24,4 @@ use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
-
-    /**
-     * Gets the path to the configuration directory.
-     */
-    private function getConfigDir(): string
-    {
-        return $this->getProjectDir().'/tests/config';
-    }
 }

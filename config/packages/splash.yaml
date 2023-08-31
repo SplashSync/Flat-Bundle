@@ -1,0 +1,22 @@
+
+splash:
+    ################################################################################
+    # List of Available Connector Connections
+    ################################################################################
+
+    connections:
+
+        ########################################################################
+        # Flat Local File Connector
+        flat-local:
+            id:                 ThisIsFlatLocalWsId
+            key:                ThisIsNotASecretKeyForFlatLocal
+            name:               Serveur 1 (Flat Local)
+            connector:          flat
+            config:
+                Objects:
+                    Basic:
+                        targets:
+                            file:///src/Resources/samples/Basic/basic.json: auto
+                        model:  Splash\Connectors\Flat\OpenApi\Models\Samples\Basic
+                        ttl:    "-1 hour"

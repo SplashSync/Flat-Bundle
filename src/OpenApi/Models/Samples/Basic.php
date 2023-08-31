@@ -30,10 +30,15 @@ class Basic implements FlatModelInterface
      * Unique identifier.
      *
      * @var string
+     *
      * @SerializedName("id")
+     *
      * @Assert\NotNull()
+     *
      * @Assert\Type("string")
+     *
      * @Type("string")
+     *
      * @Groups ({"Read", "List"})
      */
     public $id;
@@ -42,10 +47,15 @@ class Basic implements FlatModelInterface
      * Model SKU.
      *
      * @var string
+     *
      * @SerializedName("sku")
+     *
      * @Assert\NotNull()
+     *
      * @Assert\Type("string")
+     *
      * @Type("string")
+     *
      * @Groups ({"Read", "List"})
      */
     public string $sku;
@@ -54,11 +64,17 @@ class Basic implements FlatModelInterface
      * Label.
      *
      * @var string
+     *
      * @SerializedName("label")
+     *
      * @Assert\NotNull()
+     *
      * @Assert\Type("string")
+     *
      * @Type("string")
+     *
      * @Groups ({"Read", "List"})
+     *
      * @SPL\Description("This is a Label")
      */
     public string $label;
@@ -67,11 +83,17 @@ class Basic implements FlatModelInterface
      * Description.
      *
      * @var string
+     *
      * @SerializedName("description")
+     *
      * @Assert\NotNull()
+     *
      * @Assert\Type("string")
+     *
      * @Type("string")
+     *
      * @Groups ({"Read"})
+     *
      * @SPL\Description("This is a Description")
      */
     public string $description;
@@ -80,11 +102,17 @@ class Basic implements FlatModelInterface
      * Stock.
      *
      * @var int
+     *
      * @SerializedName("stock")
+     *
      * @Assert\NotNull()
+     *
      * @Assert\Type("int")
+     *
      * @Type("int")
+     *
      * @Groups ({"Read", "List"})
+     *
      * @SPL\Description("This is an Int")
      */
     public int $stock = 0;
@@ -93,10 +121,15 @@ class Basic implements FlatModelInterface
      * Updated At.
      *
      * @var null|DateTime
+     *
      * @SerializedName("updated_at")
+     *
      * @Assert\Type("DateTime")
+     *
      * @Type("DateTime<'Y-m-d H:i:s'>")
+     *
      * @Groups ({"Read"})
+     *
      * @SPL\Description("This is a DateTime")
      */
     public ?DateTime $updatedAt = null;

@@ -82,8 +82,11 @@ class UrlAnalyser
     /**
      * Extract RealPath from Url
      */
-    public static function getRealPath(string $url): ?string
+    public static function getRealPath(string $url, ?string $projectDir = null): ?string
     {
-        return realpath((string) self::getPath($url)) ?: null;
+        return realpath((string) self::getPath($url))
+            ?: realpath($projectDir."/".((string) self::getPath($url)))
+            ?: null
+        ;
     }
 }
