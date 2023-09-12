@@ -3960,16 +3960,16 @@
         },
         {
             "name": "composer/semver",
-            "version": "3.3.2",
+            "version": "3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/semver.git",
-                "reference": "3953f23262f2bff1919fc82183ad9acb13ff62c9"
+                "reference": "35e8d0af4486141bc745f23a29cc2091eb624a32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/semver/zipball/3953f23262f2bff1919fc82183ad9acb13ff62c9",
-                "reference": "3953f23262f2bff1919fc82183ad9acb13ff62c9",
+                "url": "https://api.github.com/repos/composer/semver/zipball/35e8d0af4486141bc745f23a29cc2091eb624a32",
+                "reference": "35e8d0af4486141bc745f23a29cc2091eb624a32",
                 "shasum": ""
             },
             "require": {
@@ -4019,9 +4019,9 @@
                 "versioning"
             ],
             "support": {
-                "irc": "irc://irc.freenode.org/composer",
+                "irc": "ircs://irc.libera.chat:6697/composer",
                 "issues": "https://github.com/composer/semver/issues",
-                "source": "https://github.com/composer/semver/tree/3.3.2"
+                "source": "https://github.com/composer/semver/tree/3.4.0"
             },
             "funding": [
                 {
@@ -4037,7 +4037,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-01T19:23:25+00:00"
+            "time": "2023-08-31T09:50:34+00:00"
         },
         {
             "name": "composer/spdx-licenses",
@@ -8107,35 +8107,44 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/SplashSync/Php-Console.git",
-                "reference": "055a50d92243982b0190f525d3704e2c98f71c80"
+                "reference": "97d02479c4f419e84c108af244f23fa7f9482557"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SplashSync/Php-Console/zipball/055a50d92243982b0190f525d3704e2c98f71c80",
-                "reference": "055a50d92243982b0190f525d3704e2c98f71c80",
+                "url": "https://api.github.com/repos/SplashSync/Php-Console/zipball/97d02479c4f419e84c108af244f23fa7f9482557",
+                "reference": "97d02479c4f419e84c108af244f23fa7f9482557",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2|^8.0",
-                "symfony/console": "^4.0|^5.0"
+                "php": "^7.4|^8.0",
+                "symfony/console": "^4.4|^5.4"
             },
             "require-dev": {
                 "badpixxel/php-sdk": "dev-main",
-                "doctrine/doctrine-bundle": "^1.6|^2.0",
-                "doctrine/orm": "^2.5",
+                "doctrine/annotations": "^2.0",
+                "doctrine/doctrine-bundle": "^2.0",
+                "doctrine/orm": "^2.0",
                 "monolog/monolog": "^1.0|^2.0",
-                "psr/simple-cache": "*",
                 "splash/faker": "dev-master",
                 "splash/php-bundle": "dev-master",
-                "splash/phpcore": "dev-master",
+                "symfony/debug-pack": "^1.0",
+                "symfony/http-foundation": "^5.4",
+                "symfony/http-kernel": "^5.4",
                 "symfony/monolog-bundle": "*",
-                "symfony/symfony": "^4.4|^5.4"
+                "symfony/runtime": "^5.4",
+                "symfony/security-bundle": "^5.4",
+                "symfony/twig-bundle": "^5.4"
             },
             "default-branch": true,
             "bin": [
                 "bin/splash"
             ],
             "type": "package",
+            "extra": {
+                "runtime": {
+                    "dotenv_overload": true
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Splash\\Console\\": "src/"
@@ -8160,7 +8169,7 @@
                 "issues": "https://github.com/SplashSync/Php-Console/issues",
                 "source": "https://github.com/SplashSync/Php-Console/tree/master"
             },
-            "time": "2022-06-17T19:25:21+00:00"
+            "time": "2023-08-31T11:58:47+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
