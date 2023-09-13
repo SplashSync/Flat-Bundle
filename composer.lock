@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "09f69f00bdf45b84033f2d137ec03b43",
+    "content-hash": "1966d268797ed1e31ef5098e89a85715",
     "packages": [
         {
             "name": "burgov/key-value-form-bundle",

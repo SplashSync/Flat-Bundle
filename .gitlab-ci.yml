@@ -29,35 +29,37 @@ stages:
   - deploy
 
 ################################################################
+# Base Job
+################################################################
+
+.base:    &base
+    tags:
+        - Dedicated
+    before_script:
+        ################################################################################
+        # Install Symfony
+        - composer update
+    after_script:
+        ################################################################################
+        # Run After Script
+        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/ci/after.sh | sh
+
+
+################################################################
 # Quality Tests
 ################################################################
 
 .quality_tests:    &quality_tests
+    <<: *base
     stage:      quality
-    tags:
-        - Dedicated
-    ################################################################################
-    # Install & Configure Environment
-    before_script:
-        # Setup Travis
-        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/ci/configure.sh  | sh
-        # Deploy Symfony Files
-        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/symfony/deploy.sh | sh
-        # Setup Symfony Version & Create Database
-        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/symfony/configure.sh | sh
-        # Install Symfony
-        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/symfony/install.sh | sh
-
     ################################################################################
     # Run Test Script
     script:
         # Execute Grumphp Testsuite
         - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/ci/grumphp.sh  | sh
-
-    ################################################################################
-    # Run After Script
-    after_script:
-      - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/ci/after.sh | sh
+      # Execute Grumphp Testsuite
+        - wall-e grumphp:quality
+        - wall-e grumphp:stan
 
 quality:php-8.1:
     image: registry.gitlab.com/badpixxel-projects/php-sdk:php-8.0
@@ -111,19 +113,13 @@ functional:
 # Build Documentation
 ################################################################
 pages:
-    image:    registry.gitlab.com/badpixxel-projects/php-sdk:jekyll
-    stage:    deploy
-    tags:
-      - Dedicated
-    services:
-      - docker:dind
+    image:      jekyll/minimal:latest
+    stage:      deploy
+    tags:       [ Dedicated ]
     ################################################################################
     # Run Test Script
     script:
-      # Run Composer to Build deps
-      - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/ci/composer.sh  | bash
-      # Build Documentation
-      - php vendor/bin/grumphp run --tasks=build-docs
+        - wget -qO - https://gitlab.com/badpixxel-robo/jekyll/-/raw/main/scripts/gitlab-pages.sh | sh
     artifacts:
         paths:
             - public

@@ -52,7 +52,6 @@
         }
     },
     "extra": {
-        "...": "...",
         "public-dir": "tests/public"
     },
     "scripts": {
