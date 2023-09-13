@@ -1,4 +1,3 @@
-#!/usr/bin/env php
 <?php
 
 /*
@@ -15,12 +14,9 @@
  */
 
 use Splash\Toolkit\Kernel;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
 
-require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
+require_once dirname(__DIR__).'/../vendor/autoload_runtime.php';
 
-return function (array $context): Application {
-    $kernel = new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
-
-    return new Application($kernel);
+return function (array $context): Kernel {
+    return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
 };

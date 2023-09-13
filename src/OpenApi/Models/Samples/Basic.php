@@ -94,6 +94,7 @@ class Basic implements FlatModelInterface
      *
      * @Groups ({"Read"})
      *
+     * @SPL\Type("text")
      * @SPL\Description("This is a Description")
      */
     public string $description;

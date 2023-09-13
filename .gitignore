@@ -35,3 +35,4 @@
 /web/paddock.yml
 /reboot.sh
 /src/.php_cs.cache
+/tests/public/bundles
