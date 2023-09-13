@@ -49,65 +49,55 @@ stages:
 # Quality Tests
 ################################################################
 
-.quality_tests:    &quality_tests
+.quality:    &quality
     <<: *base
     stage:      quality
     ################################################################################
     # Run Test Script
     script:
         # Execute Grumphp Testsuite
-        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/ci/grumphp.sh  | sh
-      # Execute Grumphp Testsuite
         - wall-e grumphp:quality
         - wall-e grumphp:stan
 
 quality:php-8.1:
     image: registry.gitlab.com/badpixxel-projects/php-sdk:php-8.0
-    <<: *quality_tests
+    <<: *quality
 
 quality:php-8.0:
     image: registry.gitlab.com/badpixxel-projects/php-sdk:php-8.0
-    <<: *quality_tests
+    <<: *quality
 
 ################################################################
 # Functional Tests
 ################################################################
 
-functional:
-    image:      docker:stable
+.functional:    &functional
+    <<: *base
     stage:      functional
     retry:      2
-    tags:
-        - Dedicated
-    services:
-        - docker:dind
-    ################################################################################
-    # Install & Configure Environment
-    before_script:
-        # Install Git, Bash, Curl & Docker Compose
-        - apk add --no-cache curl bash git docker-compose
-        # Install & Build Docker Compose
-        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/toolkit/build.sh  | bash
     ################################################################################
     # Run Test Script
     script:
-        # Wait for container to Start
-        - sleep 10
-        - docker-compose exec -T toolkit curl http://toolkit/
-        # Execute PhpUnit Tests
-        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/toolkit/phpunit.sh  | bash
-        # Build Splash Manifest
-        - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/toolkit/manifest.sh  | bash
-        - docker-compose exec -T toolkit ls -l
-
+        # Execute Phpunit Test Suite
+        - php vendor/bin/phpunit --log-junit $CI_PROJECT_DIR/full-report.xml
     ################################################################################
     # Run After Script
     after_script:
         - curl -s https://raw.githubusercontent.com/BadPixxel/Php-Sdk/main/toolkit/after.sh  | bash
+    ################################################################################
+    # Job Artefacts
     artifacts:
-        paths:
-            - logs
-            - manifest
+        when: always
+        reports:
+            junit: "$CI_PROJECT_DIR/*-report.xml"
+
+functional:php-8.1:
+  image: registry.gitlab.com/badpixxel-projects/php-sdk:php-8.0
+  <<: *functional
+
+functional:php-8.0:
+  image: registry.gitlab.com/badpixxel-projects/php-sdk:php-8.0
+  <<: *functional
 
 ################################################################
 # Build Documentation
