@@ -191,10 +191,23 @@ class FlatConnector extends AbstractConnector implements TrackingInterface
         if (!$this->selfTest()) {
             return null;
         }
+        //====================================================================//
+        // Read File Contents via Simple Get Request
+        $rawResponse = file_get_contents($filePath);
+        if (!$rawResponse || (md5($rawResponse) != $fileMd5)) {
+            return null;
+        }
+        //====================================================================//
+        // Build File Array
+        $file = array();
+        $file["name"] = $file["filename"] = pathinfo($filePath, PATHINFO_BASENAME);
+        $file["path"] = $filePath;
+        $file["url"] = null;
+        $file["raw"] = base64_encode((string) $rawResponse);
+        $file["md5"] = md5($rawResponse);
+        $file["size"] = strlen($rawResponse);
 
-        Splash::log()->err("There are No Files Reading for Flat Up To Now!");
-
-        return null;
+        return $file;
     }
 
     //====================================================================//
