@@ -10,27 +10,17 @@
     convertWarningsToExceptions = "true"
     processIsolation            = "false"
     stopOnFailure               = "true"
-    bootstrap                   = "vendor/splash/toolkit/tests/bootstrap.php"
+    bootstrap                   = "vendor/autoload.php"
     verbose                     = "true"
-    timeoutForLargeTests        = "10"  
+    timeoutForLargeTests        = "10"
 >
 
     <testsuites>
         <testsuite name="All">
             <directory>vendor/splash/phpcore/Tests/*</directory>
-            <directory>vendor/splash/php-bundle/tests/*</directory>
+            <directory>vendor/splash/php-bundle/phpunit/*</directory>
         </testsuite>
     </testsuites>
-
-    <filter>
-        <whitelist>
-            <directory>vendor/splash/phpcore</directory>
-            <directory>vendor/splash/php-bundle</directory>
-            <exclude>
-                <directory>vendor</directory>
-            </exclude>
-        </whitelist>
-    </filter>
 
     <php>
         <server name="KERNEL_CLASS" value="Splash\Toolkit\Kernel" />
